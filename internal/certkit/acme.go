@@ -126,7 +126,6 @@ func (q *QiniuACME) ObtainCertificate(domain string) (*certificate.Resource, err
 	if err != nil {
 		return nil, err
 	}
-
 	request := certificate.ObtainRequest{
 		Domains: []string{domain},
 		Bundle:  true,
