@@ -5,6 +5,7 @@ go 1.22.3
 require (
 	github.com/go-acme/lego/v4 v4.16.1
 	github.com/qiniu/go-sdk/v7 v7.20.1
+	gopkg.in/yaml.v3 v3.0.1
 )
 
 require (

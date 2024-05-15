@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/go-acme/lego/v4/certificate"
 	"github.com/qiniu/go-sdk/v7/auth/qbox"
 	"io"
 	"net/http"
@@ -45,6 +46,15 @@ type Cert struct {
 	CommonName string `json:"common_name"`
 	CA         string `json:"ca"`
 	Pri        string `json:"pri"`
+}
+
+func NewCertFrom(certificate *certificate.Resource) Cert {
+	return Cert{
+		Name:       certificate.Domain,
+		CommonName: certificate.Domain,
+		CA:         string(certificate.Certificate),
+		Pri:        string(certificate.PrivateKey),
+	}
 }
 
 type UploadCertResp struct {
@@ -104,7 +114,7 @@ func New(accessKey, secretKey string) *CertMgr {
 	}
 }
 
-func (c *CertMgr) Request(method string, path string, body interface{}) (resData []byte, err error) {
+func (c *CertMgr) makeRequest(method string, path string, body interface{}) (resData []byte, err error) {
 	urlStr := fmt.Sprintf("%s%s", APIHost, path)
 	reqData, _ := json.Marshal(body)
 	req, reqErr := http.NewRequest(method, urlStr, bytes.NewReader(reqData))
@@ -138,7 +148,7 @@ func (c *CertMgr) Request(method string, path string, body interface{}) (resData
 }
 
 func (c *CertMgr) GetDomainInfo(domain string) (*DomainInfo, error) {
-	b, err := c.Request("GET", "/domain/"+domain, nil)
+	b, err := c.makeRequest("GET", "/domain/"+domain, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -154,7 +164,7 @@ func (c *CertMgr) GetDomainInfo(domain string) (*DomainInfo, error) {
 }
 
 func (c *CertMgr) GetCertInfo(certID string) (*CertInfo, error) {
-	b, err := c.Request("GET", "/sslcert/"+certID, nil)
+	b, err := c.makeRequest("GET", "/sslcert/"+certID, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -169,7 +179,7 @@ func (c *CertMgr) GetCertInfo(certID string) (*CertInfo, error) {
 }
 
 func (c *CertMgr) UploadCert(cert Cert) (*UploadCertResp, error) {
-	b, err := c.Request("POST", "/sslcert", cert)
+	b, err := c.makeRequest("POST", "/sslcert", cert)
 	if err != nil {
 		return nil, err
 	}
@@ -184,7 +194,7 @@ func (c *CertMgr) UploadCert(cert Cert) (*UploadCertResp, error) {
 }
 
 func (c *CertMgr) UpdateHttpsConf(domain, certID string) (*CodeErr, error) {
-	b, err := c.Request("PUT", "/domain/"+domain+"/httpsconf", HTTPSConf{
+	b, err := c.makeRequest("PUT", "/domain/"+domain+"/httpsconf", HTTPSConf{
 		CertID:     certID,
 		ForceHttps: true,
 	})
@@ -204,7 +214,7 @@ func (c *CertMgr) UpdateHttpsConf(domain, certID string) (*CodeErr, error) {
 }
 
 func (c *CertMgr) DeleteCert(certID string) (*CodeErr, error) {
-	b, err := c.Request("DELETE", "/sslcert/"+certID, nil)
+	b, err := c.makeRequest("DELETE", "/sslcert/"+certID, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -220,7 +230,7 @@ func (c *CertMgr) DeleteCert(certID string) (*CodeErr, error) {
 }
 
 func (c *CertMgr) DomainSSLize(domain, certID string) (*CodeErr, error) {
-	b, err := c.Request("PUT", "/domain/"+domain+"/sslize", HTTPSConf{
+	b, err := c.makeRequest("PUT", "/domain/"+domain+"/sslize", HTTPSConf{
 		CertID:     certID,
 		ForceHttps: true,
 	})

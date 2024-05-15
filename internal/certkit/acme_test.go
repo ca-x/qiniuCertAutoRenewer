@@ -1,7 +1,6 @@
 package certkit
 
 import (
-	"github.com/qiniu/go-sdk/v7/storage"
 	"testing"
 )
 
@@ -16,7 +15,7 @@ func TestQiniuACME_ObtainCertificate(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	provider := NewQiniuChallengeProvider(testBucket, testAccessKey, testSecretKey, &storage.ZoneXinjiapo)
+	provider := NewChallengeProvider(testBucket, testAccessKey, testSecretKey, "z1")
 	acme := NewQiniuACME(user, provider)
 	certificate, err := acme.ObtainCertificate("test.czyt.tech")
 	if err != nil {
