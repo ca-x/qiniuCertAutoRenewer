@@ -108,7 +108,7 @@ type CertMgr struct {
 	*qbox.Mac
 }
 
-func New(accessKey, secretKey string) *CertMgr {
+func NewCertMgr(accessKey, secretKey string) *CertMgr {
 	return &CertMgr{
 		Mac: qbox.NewMac(accessKey, secretKey),
 	}

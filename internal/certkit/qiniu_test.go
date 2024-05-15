@@ -3,7 +3,7 @@ package certkit
 import "testing"
 
 func Test_GetCertList(t *testing.T) {
-	mgr := New("11111", "2222")
+	mgr := NewCertMgr("11111", "2222")
 	info, err := mgr.GetDomainInfo("test.czyt.tech")
 	if err != nil {
 		t.Fatal(err)
