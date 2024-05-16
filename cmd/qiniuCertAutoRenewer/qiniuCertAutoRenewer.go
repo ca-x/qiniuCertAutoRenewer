@@ -20,7 +20,7 @@ func main() {
 	var cfg = flag.String("c", "config.yaml", "the config file")
 	var version = flag.Bool("v", true, "show version")
 	flag.Parse()
-	if *version {
+	if !*version {
 		fmt.Println(appVersion)
 		return
 	}
