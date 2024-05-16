@@ -3,6 +3,8 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/natefinch/lumberjack"
+	"io"
 	"log/slog"
 	"os"
 	"qiniuCertAutoRenewer/internal/certkit"
@@ -13,10 +15,29 @@ import (
 const appVersion = "七牛证书自动续期工具 by czyt v1.0.1"
 
 var (
-	logger = slog.Default()
+	logger, logCloser = prepareLog()
 )
 
+func prepareLog() (*slog.Logger, func() error) {
+	logFile := &lumberjack.Logger{
+		Filename:   "app.log",
+		MaxSize:    10,
+		MaxBackups: 3,
+		MaxAge:     28,
+		Compress:   true,
+	}
+	w := io.MultiWriter(
+		os.Stdout,
+		logFile,
+	)
+	opts := &slog.HandlerOptions{
+		Level: slog.LevelDebug,
+	}
+	return slog.New(slog.NewTextHandler(w, opts)), logFile.Close
+}
+
 func main() {
+	defer logCloser()
 	var cfg = flag.String("c", "config.yaml", "the config file")
 	var version = flag.Bool("v", true, "show version")
 	flag.Parse()
