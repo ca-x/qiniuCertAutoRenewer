@@ -6,24 +6,27 @@ import (
 )
 
 type AppConfig struct {
+	ACMEConfig       ACMEConfig       `yaml:"acme_config"`
 	CertUpdatePolicy CertUpdatePolicy `yaml:"cert_update_policy"`
 	Qiniu            QiniuConfig      `yaml:"qiniu"`
+	CDNConfigs       []QiniuCDNConfig `yaml:"cdn_configs"`
 }
 
+type ACMEConfig struct {
+	Email string `yaml:"email"`
+}
 type CertUpdatePolicy struct {
-	UpdateBeforeDays int `yaml:"update_before_days"`
+	CreateCertificateForFailureOnes bool  `yaml:"create_certificate_for_failure_ones"`
+	UpdateBeforeDays                int64 `yaml:"update_before_days"`
 }
 
 type QiniuConfig struct {
 	AccessKey string `yaml:"access_key"`
 	SecretKey string `yaml:"secret_key"`
-
-	CDNConfigs []QiniuCDNConfig `yaml:"cdn_configs"`
 }
 
 type QiniuCDNConfig struct {
 	Bucket string `yaml:"bucket"`
-	Domain string `yaml:"domain"`
 	// 华东 z0
 	// 华东-浙江 cn-east-2
 	// 华北 z1
@@ -31,7 +34,10 @@ type QiniuCDNConfig struct {
 	// 北美 na0
 	// 新加坡 as0
 
-	RegionID string `yaml:"region_id"`
+	RegionID   string `yaml:"region_id"`
+	Domain     string `yaml:"domain"`
+	SSLPort    int    `yaml:"ssl_port"`
+	ForceHttps bool   `yaml:"force_https,omitempty"`
 }
 
 func (a *AppConfig) SaveTo(w io.Writer) error {

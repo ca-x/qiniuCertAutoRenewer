@@ -3,6 +3,7 @@ package certkit
 import (
 	"crypto/tls"
 	"crypto/x509"
+	"fmt"
 	"strings"
 )
 
@@ -12,20 +13,19 @@ var (
 	defaultTLSConfig = tls.Config{InsecureSkipVerify: true}
 
 	// DefaultPortNumber exposes default port number to testing
-	// TODO: Support port numbers other than :443
-	DefaultPortNumber = "443"
+	DefaultPortNumber = 443
 )
 
 // TLSEndpoint expressses https endpoint that using TLS.
 type TLSEndpoint struct {
 	Hostname string
-	Port     string
+	Port     int
 }
 
 // NewTLSEndpoint creates new TLSEndpoint instance.
 // If port number is empty, set DefaultPortNumber instead.
-func NewTLSEndpoint(host string, port string) *TLSEndpoint {
-	if port == "" {
+func NewTLSEndpoint(host string, port int) *TLSEndpoint {
+	if port == 0 {
 		port = DefaultPortNumber
 	}
 
@@ -40,7 +40,7 @@ func (e *TLSEndpoint) GetCertificates() ([]*x509.Certificate, error) {
 
 	// We cannot connect to Hostnames with wildcards, so replacing with cert-test.
 	hostName := strings.Replace(e.Hostname, "*", "cert-test", -1)
-	conn, err := tls.Dial("tcp", hostName+":"+e.Port, &defaultTLSConfig)
+	conn, err := tls.Dial("tcp", fmt.Sprintf("%s:%d", hostName, e.Port), &defaultTLSConfig)
 	if err != nil {
 		return nil, err
 	}

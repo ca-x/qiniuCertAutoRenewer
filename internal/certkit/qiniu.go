@@ -193,10 +193,10 @@ func (c *CertMgr) UploadCert(cert Cert) (*UploadCertResp, error) {
 	return resp, nil
 }
 
-func (c *CertMgr) UpdateHttpsConf(domain, certID string) (*CodeErr, error) {
+func (c *CertMgr) UpdateHttpsConf(domain, certID string, forceHttps bool) (*CodeErr, error) {
 	b, err := c.makeRequest("PUT", "/domain/"+domain+"/httpsconf", HTTPSConf{
 		CertID:     certID,
-		ForceHttps: true,
+		ForceHttps: forceHttps,
 	})
 	if err != nil {
 		return nil, err
