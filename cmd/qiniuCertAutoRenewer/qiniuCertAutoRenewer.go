@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-const appVersion = "七牛证书自动续期工具 by czyt v1.0.0"
+const appVersion = "七牛证书自动续期工具 by czyt v1.0.1"
 
 var (
 	logger = slog.Default()
@@ -40,7 +40,7 @@ func main() {
 
 func handleJob(appConfig *config.AppConfig) error {
 	// get the cert config
-	user, err := certkit.NewUser("cert@czyt.tech")
+	user, err := certkit.NewUser(appConfig.ACMEConfig.Email)
 	if err != nil {
 		logger.Error("new user error:", err)
 		return err
