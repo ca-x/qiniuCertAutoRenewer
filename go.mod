@@ -5,7 +5,7 @@ go 1.22.3
 require (
 	github.com/go-acme/lego/v4 v4.19.2
 	github.com/natefinch/lumberjack v2.0.0+incompatible
-	github.com/qiniu/go-sdk/v7 v7.22.0
+	github.com/qiniu/go-sdk/v7 v7.23.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
