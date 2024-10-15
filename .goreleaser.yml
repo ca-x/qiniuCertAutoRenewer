@@ -1,4 +1,5 @@
 project_name: qiniuCertAutoRenewer
+version: 2
 
 # release:
   # If set to auto, will mark the release as not ready for production
