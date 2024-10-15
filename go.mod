@@ -13,7 +13,7 @@ require (
 	github.com/BurntSushi/toml v1.4.0 // indirect
 	github.com/alex-ant/gomath v0.0.0-20160516115720-89013a210a82 // indirect
 	github.com/cenkalti/backoff/v4 v4.3.0 // indirect
-	github.com/elastic/go-sysinfo v1.0.2 // indirect
+	github.com/elastic/go-sysinfo v1.14.2 // indirect
 	github.com/elastic/go-windows v1.0.0 // indirect
 	github.com/gammazero/toposort v0.1.1 // indirect
 	github.com/go-jose/go-jose/v4 v4.0.4 // indirect
