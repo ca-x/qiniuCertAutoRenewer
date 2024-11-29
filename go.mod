@@ -5,7 +5,7 @@ go 1.22.3
 require (
 	github.com/go-acme/lego/v4 v4.20.4
 	github.com/natefinch/lumberjack v2.0.0+incompatible
-	github.com/qiniu/go-sdk/v7 v7.23.0
+	github.com/qiniu/go-sdk/v7 v7.25.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
@@ -21,6 +21,7 @@ require (
 	github.com/miekg/dns v1.1.62 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/prometheus/procfs v0.15.1 // indirect
+  github.com/qiniu/go-sdk/v7-7.25.0
 	golang.org/x/crypto v0.28.0 // indirect
 	golang.org/x/mod v0.21.0 // indirect
 	golang.org/x/net v0.30.0 // indirect
