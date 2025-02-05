@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-const appVersion = "七牛证书自动续期工具 by czyt v1.0.1"
+const appVersion = "七牛证书自动续期工具 by czyt v1.0.2"
 
 var (
 	logger, logCloser = prepareLog()
@@ -47,13 +47,13 @@ func main() {
 	}
 	f, err := os.Open(*cfg)
 	if err != nil {
-		logger.Error("open config file error:", err)
+		logger.Error("failed to open config file ", "err", err)
 		return
 	}
 	defer f.Close()
 	conf, err := config.LoadFrom(f)
 	if err != nil {
-		logger.Error("load config file error:", err)
+		logger.Error("failed to load config file", "err", err)
 		return
 	}
 	handleJob(conf)
@@ -63,7 +63,7 @@ func handleJob(appConfig *config.AppConfig) error {
 	// get the cert config
 	user, err := certkit.NewUser(appConfig.ACMEConfig.Email)
 	if err != nil {
-		logger.Error("new user error:", err)
+		logger.Error("failed to register new user", "err", err)
 		return err
 	}
 
@@ -76,7 +76,7 @@ process:
 		tlsEndpoint := certkit.NewTLSEndpoint(cdnConfig.Domain, cdnConfig.SSLPort)
 		tlsCerts, err := tlsEndpoint.GetCertificates()
 		if err != nil {
-			logger.Error("get certificates error", err)
+			logger.Error("failed to get certificates", "err", err)
 			if appConfig.CertUpdatePolicy.CreateCertificateForFailureOnes {
 				needCreateCert = true
 			} else {
@@ -107,13 +107,13 @@ process:
 		acme := certkit.NewQiniuACME(user, provider)
 		certificate, err := acme.ObtainCertificate(cdnConfig.Domain)
 		if err != nil {
-			logger.Error("get certificate error", err)
+			logger.Error("failed  to get certificate", "err", err)
 			return err
 		}
 		cert := certkit.NewCertFrom(certificate)
 		uploadCert, err := certMgr.UploadCert(cert)
 		if err != nil {
-			logger.Error("upload cert error", err)
+			logger.Error("failed to upload cert ", "err", err)
 			return err
 		}
 		logger.Info("upload cert success", "cert id", uploadCert.CertID)
