@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-const appVersion = "七牛证书自动续期工具 by czyt v1.0.2"
+const appVersion = "七牛证书自动续期工具 by czyt v1.0.4"
 
 var (
 	logger, logCloser = prepareLog()
