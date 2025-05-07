@@ -3,6 +3,7 @@ package config
 import (
 	"gopkg.in/yaml.v3"
 	"io"
+	"time"
 )
 
 type AppConfig struct {
@@ -10,6 +11,7 @@ type AppConfig struct {
 	CertUpdatePolicy CertUpdatePolicy `yaml:"cert_update_policy"`
 	Qiniu            QiniuConfig      `yaml:"qiniu"`
 	CDNConfigs       []QiniuCDNConfig `yaml:"cdn_configs"`
+	DelayPerTask     time.Duration    `yaml:"delay_per_task"`
 }
 
 type ACMEConfig struct {
@@ -48,6 +50,9 @@ func LoadFrom(r io.Reader) (*AppConfig, error) {
 	conf := &AppConfig{}
 	if err := yaml.NewDecoder(r).Decode(conf); err != nil {
 		return nil, err
+	}
+	if conf.DelayPerTask == 0 {
+		conf.DelayPerTask = 10 * time.Second
 	}
 	return conf, nil
 }

@@ -3,6 +3,7 @@ package config
 import (
 	"os"
 	"testing"
+	"time"
 )
 
 func Test_CreateConfig(t *testing.T) {
@@ -34,6 +35,7 @@ func Test_CreateConfig(t *testing.T) {
 				RegionID: "1z",
 			},
 		},
+		DelayPerTask: 10 * time.Second,
 	}
 	f, err := os.Create("testdata/config.yaml")
 	if err != nil {

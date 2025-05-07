@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-const appVersion = "七牛证书自动续期工具 by czyt v1.0.4"
+const appVersion = "七牛证书自动续期工具 by czyt v1.0.5"
 
 var (
 	logger, logCloser = prepareLog()
@@ -102,7 +102,7 @@ process:
 			}
 		}
 
-		logger.Info("process domain", cdnConfig.Domain)
+		logger.Info("start to process cert", "domain name", cdnConfig.Domain)
 		provider := certkit.NewChallengeProvider(cdnConfig.Bucket, appConfig.Qiniu.AccessKey, appConfig.Qiniu.SecretKey, cdnConfig.RegionID)
 		acme := certkit.NewQiniuACME(user, provider)
 		certificate, err := acme.ObtainCertificate(cdnConfig.Domain)
@@ -124,6 +124,12 @@ process:
 			return err
 		}
 		logger.Info("deploy cert to domain success", "result code", updateResult.Code)
+
+		delay := time.NewTimer(appConfig.DelayPerTask)
+		select {
+		case <-delay.C:
+			continue process
+		}
 	}
 	return nil
 }
