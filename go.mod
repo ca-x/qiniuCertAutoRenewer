@@ -7,7 +7,7 @@ toolchain go1.24.2
 require (
 	github.com/go-acme/lego/v4 v4.23.1
 	github.com/natefinch/lumberjack v2.0.0+incompatible
-	github.com/qiniu/go-sdk/v7 v7.25.3
+	github.com/qiniu/go-sdk/v7 v7.25.4
 	gopkg.in/yaml.v3 v3.0.1
 )
 
@@ -19,8 +19,6 @@ require (
 	github.com/go-jose/go-jose/v4 v4.0.5 // indirect
 	github.com/gofrs/flock v0.12.1 // indirect
 	github.com/miekg/dns v1.1.64 // indirect
-	github.com/pkg/errors v0.9.1 // indirect
-	github.com/prometheus/procfs v0.15.1 // indirect
 	golang.org/x/crypto v0.36.0 // indirect
 	golang.org/x/mod v0.23.0 // indirect
 	golang.org/x/net v0.38.0 // indirect
