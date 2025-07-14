@@ -7,7 +7,7 @@ toolchain go1.24.2
 require (
 	github.com/go-acme/lego/v4 v4.24.0
 	github.com/natefinch/lumberjack v2.0.0+incompatible
-	github.com/qiniu/go-sdk/v7 v7.25.3
+	github.com/qiniu/go-sdk/v7 v7.25.4
 	gopkg.in/yaml.v3 v3.0.1
 )
 
