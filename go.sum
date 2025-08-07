@@ -12,8 +12,8 @@ github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc h1:U9qPSI2PIWSS1
 github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/gammazero/toposort v0.1.1 h1:OivGxsWxF3U3+U80VoLJ+f50HcPU1MIqE1JlKzoJ2Eg=
 github.com/gammazero/toposort v0.1.1/go.mod h1:H2cozTnNpMw0hg2VHAYsAxmkHXBYroNangj2NTBQDvw=
-github.com/go-acme/lego/v4 v4.25.1 h1:AYPUM7quPN/g2PcjjWw8sAMz3eV+Z8UWkr1kitDOyVA=
-github.com/go-acme/lego/v4 v4.25.1/go.mod h1:OORYyVNZPaNdIdVYCGSBNRNZDIjhQbPuFxwGDgWj/yM=
+github.com/go-acme/lego/v4 v4.25.2 h1:+D1Q+VnZrD+WJdlkgUEGHFFTcDrwGlE7q24IFtMmHDI=
+github.com/go-acme/lego/v4 v4.25.2/go.mod h1:OORYyVNZPaNdIdVYCGSBNRNZDIjhQbPuFxwGDgWj/yM=
 github.com/go-jose/go-jose/v4 v4.1.1 h1:JYhSgy4mXXzAdF3nUx3ygx347LRXJRrpgyU3adRmkAI=
 github.com/go-jose/go-jose/v4 v4.1.1/go.mod h1:BdsZGqgdO3b6tTc6LSE56wcDbMMLuPsw5d4ZD5f94kA=
 github.com/go-playground/assert/v2 v2.0.1/go.mod h1:VDjEfimB/XKnb+ZQfWdccd7VUvScMdVu0Titje2rxJ4=
